@@ -1,0 +1,28 @@
+# Terraform working files
+.terraform/
+*.tfstate
+*.tfstate.*
+crash.log
+crash.*.log
+*.tfplan
+
+# Variable files can contain environment-specific or sensitive values
+*.tfvars
+*.tfvars.json
+!example.tfvars
+
+# Lock files belong to the projects that use these modules, not to the modules
+.terraform.lock.hcl
+
+# Secrets and keys
+*.pem
+*.key
+.env
+.env.*
+
+# Operating system and editor files
+Thumbs.db
+.DS_Store
+.vscode/
+.idea/
+

@@ -1,0 +1,12 @@
+# Normalize text files, and let Git detect binary files automatically
+* text=auto
+
+# Terraform and configuration files must always use LF
+*.tf     text eol=lf
+*.tfvars text eol=lf
+*.hcl    text eol=lf
+*.md     text eol=lf
+*.yml    text eol=lf
+*.yaml   text eol=lf
+*.sh     text eol=lf
+
