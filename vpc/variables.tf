@@ -19,5 +19,30 @@ variable "tags" {
   default     = {}
 }
 
+variable "availability_zones" {
+  description = "Availability zones for the subnet, in the same order as the subnet CIDR list"
+  type        = list(string)
+  default     = []
+}
 
+variable "public_subnet_cidrs" {
+  description = "IPv4 CIDR blocks for the public subnets, in the same order as the availability zones"
+  type        = list(string)
+  default     = []
 
+  validation {
+    condition     = length(var.public_subnet_cidrs) == 0 || length(var.public_subnet_cidrs) == length(var.availability_zones)
+    error_message = "public_subnet_cidrs must have one CIDR block for each Availability Zone in availability_zones."
+  }
+}
+
+variable "private_app_subnet_cidrs" {
+  description = "IPv4 CIDR blocks for the private application subnets, in the same order as the availability zones"
+  type        = list(string)
+  default     = []
+
+  validation {
+    condition     = length(var.private_app_subnet_cidrs) == 0 || length(var.private_app_subnet_cidrs) == length(var.availability_zones)
+    error_message = "private_app_subnet_cidrs must have one CIDR block for each Availability Zone in availability_zones."
+  }
+}
