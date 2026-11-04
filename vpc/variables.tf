@@ -46,3 +46,19 @@ variable "private_app_subnet_cidrs" {
     error_message = "private_app_subnet_cidrs must have one CIDR block for each Availability Zone in availability_zones."
   }
 }
+
+variable "nat_gateway_mode" {
+  description = "NAT gateway layout for the private subnets: none, single, or one_per_az"
+  type        = string
+  default     = "none"
+
+  validation {
+    condition     = contains(["none", "single", "one_per_az"], var.nat_gateway_mode)
+    error_message = "nat_gateway_mode must be one of: none, single, one_per_az."
+  }
+
+  validation {
+    condition     = var.nat_gateway_mode == "none" || length(var.public_subnet_cidrs) > 0
+    error_message = "nat_gateway_mode requires public_subnet_cidrs, because NAT gateways are placed in public subnets."
+  }
+}
