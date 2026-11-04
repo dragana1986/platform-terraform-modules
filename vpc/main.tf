@@ -32,3 +32,13 @@ resource "aws_subnet" "private_app" {
     Tier = "private-app"
   })
 }
+
+resource "aws_internet_gateway" "igw" {
+  count = length(var.public_subnet_cidrs) > 0 ? 1 : 0
+
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(var.tags, {
+    Name = "${var.name}-igw"
+  })
+}
