@@ -42,3 +42,22 @@ resource "aws_internet_gateway" "igw" {
     Name = "${var.name}-igw"
   })
 }
+
+resource "aws_route_table" "public" {
+  count = length(var.public_subnet_cidrs) > 0 ? 1 : 0
+
+  vpc_id = aws_vpc.main.id
+
+  tags = merge(var.tags, {
+    Name = "${var.name}-public-rt"
+    Tier = "public"
+  })
+}
+
+resource "aws_route" "public_internet_access" {
+  count = length(var.public_subnet_cidrs) > 0 ? 1 : 0
+
+  route_table_id         = aws_route_table.public[0].id
+  destination_cidr_block = "0.0.0.0/0"
+  gateway_id             = aws_internet_gateway.igw[0].id
+}
