@@ -20,7 +20,7 @@ variable "tags" {
 }
 
 variable "availability_zones" {
-  description = "Availability zones for the subnet, in the same order as the subnet CIDR list"
+  description = "Availability zones for the subnets, in the same order as the subnet CIDR lists"
   type        = list(string)
   default     = []
 }
